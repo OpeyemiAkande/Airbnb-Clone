@@ -39,7 +39,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
       <div className="flex flex-row items-center gap-3">
         <div
           onClick={onRent}
-          className="
+          className=" 
         hidden
         md:block
         text-sm
@@ -101,7 +101,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                 <MenuItem onClick={() => {}} label="My favorites" />
                 <MenuItem onClick={() => {}} label="My reservations" />
                 <MenuItem onClick={() => {}} label="My properties" />
-                <MenuItem onClick={() => {}} label="AirBnb my home" />
+                <MenuItem onClick={rentModal.onOpen} label="AirBnb my home" />
                 <MenuItem onClick={() => signOut()} label="Logout" />
                 <hr />
               </>
