@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
-import { Nunito } from "next/font/google";
+import type {Metadata} from "next";
+import {Nunito} from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/NavBar/Navbar";
 import ClientOnly from "./components/ClientOnly";
@@ -11,7 +11,7 @@ import getCurrentUser from "./actions/getCurrentUser";
 import RentModal from "./components/modals/RentModal";
 import SearchModal from "./components/modals/SearchModal";
 
-const nunito = Nunito({ subsets: ["latin"] });
+const nunito = Nunito({subsets: ["latin"]});
 
 export const metadata: Metadata = {
   title: "AirBnB",
@@ -24,7 +24,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const currentUser = await getCurrentUser();
-  // console.log(currentUser);
   return (
     <html lang="en">
       <body className={nunito.className}>

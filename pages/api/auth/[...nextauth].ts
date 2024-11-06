@@ -1,5 +1,5 @@
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import NextAuth, { AuthOptions } from "next-auth";
+import {PrismaAdapter} from "@next-auth/prisma-adapter";
+import NextAuth, {AuthOptions} from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -17,12 +17,13 @@ export const authOptions: AuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      allowDangerousEmailAccountLinking: true,
     }),
     CredentialsProvider({
       name: "credentials",
       credentials: {
-        email: { label: "email", type: "text" },
-        password: { label: "password", type: "password" },
+        email: {label: "email", type: "text"},
+        password: {label: "password", type: "password"},
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
@@ -48,10 +49,22 @@ export const authOptions: AuthOptions = {
           throw new Error("Invalid credentials");
         }
 
+        // console.log(user);
+
         return user;
       },
     }),
   ],
+  callbacks: {
+    async redirect({url, baseUrl}) {
+      // Ensure the callbackUrl is correctly passed and is not double-encoded
+      const callbackUrl = new URL(url || baseUrl);
+      const finalUrl = callbackUrl.searchParams.get("callbackUrl") || baseUrl;
+
+      // console.log(finalUrl, callbackUrl);
+      return finalUrl; // Return the correctly decoded URL
+    },
+  },
   pages: {
     signIn: "/",
   },

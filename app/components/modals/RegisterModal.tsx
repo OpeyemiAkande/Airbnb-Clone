@@ -1,10 +1,10 @@
 "use client";
 
 import axios from "axios";
-import { AiFillGithub } from "react-icons/ai";
-import { FcGoogle } from "react-icons/fc";
-import { useCallback, useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import {AiFillGithub} from "react-icons/ai";
+import {FcGoogle} from "react-icons/fc";
+import {useCallback, useState} from "react";
+import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
 
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import Modal from "./Modal";
@@ -12,7 +12,7 @@ import Heading from "../Heading";
 import Input from "../inputs/Input";
 import toast from "react-hot-toast";
 import Button from "../Button";
-import { signIn } from "next-auth/react";
+import {signIn} from "next-auth/react";
 import LoginModal from "./LoginModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
 
@@ -24,7 +24,7 @@ const RegisterModal = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: {errors},
   } = useForm<FieldValues>({
     defaultValues: {
       name: "",
@@ -44,6 +44,7 @@ const RegisterModal = () => {
         loginModal.onOpen();
       })
       .catch((error) => {
+        // console.log(error);
         toast.error("Something went wrong");
       })
       .finally(() => {
@@ -90,12 +91,14 @@ const RegisterModal = () => {
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <hr />
-      <Button
-        outline
-        label="Continue with Google"
-        icon={FcGoogle}
-        onClick={() => signIn("google")}
-      />
+      {
+        <Button
+          outline
+          label="Continue with Google"
+          icon={FcGoogle}
+          onClick={() => signIn("google")}
+        />
+      }
       <Button
         outline
         label="Continue with Github"
